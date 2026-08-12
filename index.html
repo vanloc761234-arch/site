@@ -2,261 +2,61 @@
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>galaxy. | Key MenuGame</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Key miễn phí - Galaxy</title>
 <style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial,sans-serif;
-}
-
-body{
-    min-height:100vh;
-    background:#0b1322;
-    color:white;
-    padding:25px 15px 50px;
-}
-
-.container{
-    max-width:650px;
-    margin:auto;
-}
-
-/* PROFILE */
-.profile{
-    text-align:center;
-    padding:25px 0 35px;
-}
-
-.avatar{
-    width:105px;
-    height:105px;
-    margin:auto;
-    border-radius:50%;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:38px;
-    font-weight:900;
-
-    background:
-        radial-gradient(circle at 25% 25%,#fff 0 3%,transparent 4%),
-        radial-gradient(circle at 70% 30%,#8d7cff 0 4%,transparent 5%),
-        radial-gradient(circle at 40% 75%,#fff 0 3%,transparent 4%),
-        radial-gradient(circle,#4829a8,#160d3b 65%,#080313);
-
-    border:3px solid #6377ff;
-    box-shadow:0 0 35px #4d5fff;
-}
-
-.name{
-    margin-top:16px;
-    font-size:30px;
-    font-weight:900;
-}
-
-.subtitle{
-    margin-top:7px;
-    color:#8995aa;
-    font-size:18px;
-}
-
-/* SEARCH */
-.search{
-    width:100%;
-    padding:18px 20px;
-    margin-bottom:15px;
-
-    border-radius:18px;
-    border:1px solid #35445c;
-
-    background:#1b293b;
-    color:white;
-
-    font-size:17px;
-    outline:none;
-}
-
-.search::placeholder{
-    color:#8995aa;
-}
-
-/* CATEGORY */
-.category{
-    padding:18px 20px;
-    margin-bottom:18px;
-
-    border-radius:18px;
-    border:1px solid #35445c;
-
-    background:#1b293b;
-    font-size:18px;
-}
-
-/* CARD */
-.card{
-    padding:22px;
-    margin-bottom:18px;
-
-    background:#1b293b;
-    border:1px solid #35445c;
-    border-radius:22px;
-}
-
-.card-top{
-    display:flex;
-    align-items:center;
-    gap:18px;
-}
-
-.icon{
-    width:82px;
-    height:82px;
-
-    border-radius:18px;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    background:#293c57;
-
-    font-size:24px;
-    font-weight:900;
-}
-
-.card h2{
-    font-size:24px;
-}
-
-.card p{
-    margin-top:7px;
-    color:#8995aa;
-    font-size:17px;
-}
-
-/* BUTTON */
-.get{
-    width:100%;
-    margin-top:22px;
-    padding:16px;
-
-    border:0;
-    border-radius:30px;
-
-    background:#5366ff;
-    color:white;
-
-    font-size:18px;
-    font-weight:bold;
-}
-
-.get:active{
-    transform:scale(.98);
-}
-
-/* RESULT */
-.result{
-    display:none;
-
-    margin-top:15px;
-    padding:17px;
-
-    border-radius:13px;
-
-    background:#0e1825;
-    border:1px solid #26364b;
-
-    text-align:center;
-}
-
-.result-title{
-    color:#9ca8bb;
-    font-size:14px;
-}
-
-.key{
-    margin-top:8px;
-    color:#62ff9b;
-    font-size:25px;
-    font-weight:bold;
-    letter-spacing:1px;
-}
-
-.copy{
-    width:auto;
-    margin-top:12px;
-    padding:10px 22px;
-
-    border:0;
-    border-radius:9px;
-
-    background:#26364b;
-    color:white;
-
-    font-size:14px;
-}
-
-/* FOOTER */
-.footer{
-    text-align:center;
-    color:#566174;
-    font-size:13px;
-    margin-top:30px;
-}
+  body { background: #0e1117; color: #fff; font-family: Arial; margin: 0; }
+  .header { display: flex; align-items: center; padding: 14px; background: #000; }
+  .header h1 { font-size: 18px; margin: 0 0 0 12px; }
+  .header span { color: #aaa; font-size: 14px; margin-left: 6px; }
+  .container { padding: 14px; }
+  .search, .filter { width: 100%; padding: 12px; margin-bottom: 12px; background: #1a1e26; border: 1px solid #2a2f3a; border-radius: 10px; color: #fff; }
+  .card { background: #1a1e26; border: 1px solid #2a2f3a; border-radius: 12px; padding: 12px; display: flex; align-items: center; margin-bottom: 12px; }
+  .card img { width: 56px; height: 56px; border-radius: 8px; }
+  .badge { background: #00c853; color: #fff; font-size: 12px; padding: 2px 6px; border-radius: 50%; position: absolute; margin: -45px 0 0 40px; }
+  .info { flex: 1; margin-left: 12px; }
+  .btn { background: #3b5bff; border: none; color: #fff; padding: 10px 16px; border-radius: 8px; cursor: pointer; }
+  #page2 { display: none; }
 </style>
 </head>
-
 <body>
 
-<div class="container">
+<!-- TRANG 1 -->
+<div id="page1">
+  <div class="header">
+    <span>←</span>
+    <h1>Key miễn phí <span>- Galaxy</span></h1>
+  </div>
+  <div class="container">
+    <input class="search" placeholder="Tìm kiếm sản phẩm...">
+    <select class="filter"><option>Tất cả games</option></select>
 
-    <!-- PROFILE -->
-    <div class="profile">
-
-        <div class="avatar">
-            G
-        </div>
-
-        <div class="name">
-            galaxy.
-        </div>
-
-        <div class="subtitle">
-            KEY CENTER
-        </div>
-
+    <div class="card">
+      <div>
+        <img src="https://upload.wikimedia.org/wikipedia/vi/9/9a/Free_Fire_MAX_logo.png">
+        <div class="badge">1</div>
+      </div>
+      <div class="info"><b>Free Fire</b></div>
+      <button class="btn" onclick="showPage2()">Tất Cả Menu</button>
     </div>
+  </div>
+</div>
 
+<!-- TRANG 2 -->
+<div id="page2">
+  <div class="header">
+    <span onclick="showPage1()" style="cursor:pointer">←</span>
+    <h1>Free Fire <span>- Galaxy</span></h1>
+  </div>
+  <div class="container">
+    <div class="card"><div class="info"><b>DVLXKAI</b></div><button class="btn">Nhận Key</button></div>
+    <div class="card"><div class="info"><b>Zenny</b></div><button class="btn">Nhận Key</button></div>
+  </div>
+</div>
 
-    <!-- SEARCH -->
-    <input
-        id="search"
-        class="search"
-        type="text"
-        placeholder="Tìm kiếm sản phẩm..."
-        oninput="searchProducts()"
-    >
-
-
-    <!-- CATEGORY -->
-    <div class="category">
-        Tất cả games
-    </div>
-
-
-    <!-- DVL X KAI -->
-    <div class="card" data-name="dvl x kai">
-
-        <div class="card-top">
-
-            <div class="icon">
-                DX
-            </div>
-
-            <
+<script>
+function showPage2(){ document.getElementById('page1').style.display='none'; document.getElementById('page2').style.display='block'; }
+function showPage1(){ document.getElementById('page1').style.display='block'; document.getElementById('page2').style.display='none'; }
+</script>
+</body>
+</html>
