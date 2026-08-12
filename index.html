@@ -597,7 +597,16 @@ toast.style.display="none";
 
 }
 
-</script>
+<script>
+const SERVER_URL = "https://galaxy-sever.onrender.com";
 
+function testServer() {
+    fetch(SERVER_URL)
+        .then(response => response.text())
+        .then(data => {
+            console.log(data);
+        });
+}
+</script>
 </body>
   </html>
