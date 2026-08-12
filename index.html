@@ -1,415 +1,282 @@
-const express = require("express");
-
-const app = express();
-const PORT = process.env.PORT || 3000;
-
-app.use(express.json());
-
-// ============================
-// KEY CỦA BẠN
-// ============================
-
-const keys = [
-  { value: "FF-KEY-001-A8X9", used: false },
-  { value: "FF-KEY-002-B7K2", used: false },
-  { value: "FF-KEY-003-C5P4", used: false },
-  { value: "FF-KEY-004-D9M8", used: false },
-  { value: "FF-KEY-005-E3Q7", used: false }
-];
-
-// ============================
-// API NHẬN KEY
-// ============================
-
-app.post("/api/claim", (req, res) => {
-
-  const availableKey = keys.find(key => !key.used);
-
-  if (!availableKey) {
-    return res.status(404).json({
-      success: false,
-      message: "Kho key đã hết!"
-    });
-  }
-
-  availableKey.used = true;
-
-  res.json({
-    success: true,
-    key: availableKey.value
-  });
-});
-
-// ============================
-// WEBSITE
-// ============================
-
-app.get("/", (req, res) => {
-
-  res.send(`
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta name="viewport"
-      content="width=device-width, initial-scale=1.0">
-
-<title>KEYGAME FF</title>
+<title>GETKEY MENU FF</title>
 
 <style>
-
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
 }
 
-body {
-
-  min-height: 100vh;
-
-  background:
-    radial-gradient(
-      circle at top,
-      #3b1010,
-      #090909 60%
-    );
-
-  color: white;
-
-  display: flex;
-
-  justify-content: center;
-
-  align-items: center;
-
-  padding: 20px;
+body{
+    min-height:100vh;
+    background:
+        radial-gradient(circle at top,#4b1111,#070707 65%);
+    color:white;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding:20px;
 }
 
-.container {
-
-  width: 100%;
-
-  max-width: 460px;
+.box{
+    width:100%;
+    max-width:430px;
+    background:#151515;
+    border:1px solid #333;
+    border-radius:20px;
+    padding:30px 24px;
+    text-align:center;
+    box-shadow:0 0 40px rgba(255,0,0,.18);
 }
 
-.card {
-
-  background: #151515;
-
-  border: 1px solid #333;
-
-  border-radius: 20px;
-
-  padding: 35px 25px;
-
-  text-align: center;
-
-  box-shadow:
-    0 0 40px rgba(0,0,0,.8);
+.logo{
+    font-size:38px;
+    font-weight:900;
+    color:#ff3030;
+    text-shadow:0 0 15px #ff0000;
+    margin-bottom:8px;
 }
 
-.logo {
-
-  font-size: 40px;
-
-  font-weight: 900;
-
-  color: #ff3030;
-
-  text-shadow:
-    0 0 15px #ff3030;
-
-  margin-bottom: 8px;
+.subtitle{
+    color:#888;
+    font-size:14px;
+    margin-bottom:25px;
 }
 
-.subtitle {
-
-  color: #888;
-
-  margin-bottom: 30px;
+.info{
+    color:#aaa;
+    line-height:1.6;
+    margin-bottom:25px;
 }
 
-.info {
-
-  color: #aaa;
-
-  line-height: 1.6;
-
-  margin-bottom: 25px;
+button{
+    width:100%;
+    padding:16px;
+    border:0;
+    border-radius:11px;
+    background:#ff3030;
+    color:white;
+    font-size:17px;
+    font-weight:bold;
+    cursor:pointer;
 }
 
-button {
-
-  width: 100%;
-
-  padding: 16px;
-
-  border: none;
-
-  border-radius: 10px;
-
-  background: #ff3030;
-
-  color: white;
-
-  font-size: 17px;
-
-  font-weight: bold;
-
-  cursor: pointer;
-
-  transition: .2s;
+button:hover{
+    background:#ff4b4b;
 }
 
-button:hover {
-
-  background: #ff5050;
-
-  transform: translateY(-2px);
+#keyBox{
+    display:none;
+    margin-top:20px;
+    padding:20px;
+    background:#090909;
+    border:1px solid #333;
+    border-radius:12px;
 }
 
-button:disabled {
-
-  background: #555;
-
-  cursor: not-allowed;
-
-  transform: none;
+.keyTitle{
+    color:#999;
+    font-size:14px;
+    margin-bottom:10px;
 }
 
-#status {
-
-  margin-top: 15px;
-
-  color: #888;
-
-  font-size: 14px;
+#key{
+    color:#00ff88;
+    font-size:22px;
+    font-weight:bold;
+    word-break:break-all;
 }
 
-#result {
-
-  display: none;
-
-  margin-top: 20px;
-
-  padding: 18px;
-
-  background: #090909;
-
-  border: 1px solid #333;
-
-  border-radius: 10px;
+.copy{
+    margin-top:15px;
+    background:#292929;
+    font-size:14px;
 }
 
-.key-title {
-
-  color: #aaa;
-
-  margin-bottom: 10px;
+.status{
+    margin-top:15px;
+    color:#888;
+    font-size:13px;
 }
 
-#key {
-
-  color: #00ff88;
-
-  font-size: 20px;
-
-  font-weight: bold;
-
-  word-break: break-all;
+.footer{
+    margin-top:20px;
+    color:#555;
+    font-size:12px;
 }
-
-.copy {
-
-  margin-top: 15px;
-
-  background: #292929;
-
-  font-size: 14px;
-}
-
-.copy:hover {
-
-  background: #3b3b3b;
-}
-
-.footer {
-
-  text-align: center;
-
-  margin-top: 20px;
-
-  color: #555;
-
-  font-size: 12px;
-}
-
 </style>
-
 </head>
 
 <body>
 
-<div class="container">
+<div class="box">
 
-<div class="card">
+    <div class="logo">
+        GETKEY MENU FF
+    </div>
 
-<div class="logo">
-KEYGAME FF
-</div>
+    <div class="subtitle">
+        KEY MANAGEMENT
+    </div>
 
-<div class="subtitle">
-KEY MANAGEMENT
-</div>
+    <div class="info">
+        Nhấn nút bên dưới để nhận key.
+        <br>
+        Hoàn thành bước xác minh rồi quay lại trang.
+    </div>
 
-<div class="info">
+    <button onclick="goLink4M()">
+        🔑 NHẬN KEY
+    </button>
 
-Nhấn nút bên dưới để nhận key.
+    <div id="status" class="status"></div>
 
-<br>
+    <div id="keyBox">
 
-Mỗi key chỉ được cấp một lần.
+        <div class="keyTitle">
+            KEY CỦA BẠN
+        </div>
 
-</div>
+        <div id="key"></div>
 
-<button
-id="claimButton"
-onclick="claimKey()">
+        <button class="copy" onclick="copyKey()">
+            📋 SAO CHÉP KEY
+        </button>
 
-🔑 NHẬN KEY
+    </div>
 
-</button>
-
-<div id="status"></div>
-
-<div id="result">
-
-<div class="key-title">
-Key của bạn
-</div>
-
-<div id="key"></div>
-
-<button
-class="copy"
-onclick="copyKey()">
-
-📋 SAO CHÉP KEY
-
-</button>
-
-</div>
-
-</div>
-
-<div class="footer">
-© 2026 KEYGAME FF
-</div>
+    <div class="footer">
+        © 2026 GETKEY MENU FF
+    </div>
 
 </div>
 
 <script>
 
-let currentKey = "";
+/*
+    LINK4M CỦA BẠN
+*/
+const LINK4M =
+"https://link4m.org/MVYzDd";
 
-async function claimKey() {
 
-  const button =
-    document.getElementById(
-      "claimButton"
+/*
+    Khi bấm NHẬN KEY
+*/
+function goLink4M(){
+
+    /*
+      Lưu trạng thái để khi quay lại
+      trang có thể biết đã đi qua Link4M.
+    */
+    sessionStorage.setItem(
+        "wentToLink4M",
+        "1"
     );
 
-  const status =
-    document.getElementById(
-      "status"
-    );
+    window.location.href = LINK4M;
+}
 
-  button.disabled = true;
 
-  status.textContent =
-    "Đang lấy key...";
+/*
+    Tạo key ngẫu nhiên
+*/
+function generateKey(){
 
-  try {
+    const chars =
+        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 
-    const response =
-      await fetch(
-        "/api/claim",
-        {
-          method: "POST"
-        }
-      );
+    let part1 = "";
+    let part2 = "";
 
-    const data =
-      await response.json();
-
-    if (!data.success) {
-
-      status.textContent =
-        data.message;
-
-      button.disabled = false;
-
-      return;
+    for(let i = 0; i < 6; i++){
+        part1 += chars[
+            Math.floor(
+                Math.random() * chars.length
+            )
+        ];
     }
 
-    currentKey = data.key;
+    for(let i = 0; i < 6; i++){
+        part2 += chars[
+            Math.floor(
+                Math.random() * chars.length
+            )
+        ];
+    }
 
-    document.getElementById(
-      "key"
-    ).textContent = currentKey;
-
-    document.getElementById(
-      "result"
-    ).style.display = "block";
-
-    status.textContent =
-      "Nhận key thành công!";
-
-  } catch (error) {
-
-    status.textContent =
-      "Không kết nối được máy chủ.";
-
-    button.disabled = false;
-  }
+    return "FF-" + part1 + "-" + part2;
 }
 
-function copyKey() {
 
-  if (!currentKey) return;
+/*
+    Kiểm tra khi người dùng quay lại
+*/
+function checkReturn(){
 
-  navigator.clipboard.writeText(
-    currentKey
-  );
+    const went =
+        sessionStorage.getItem(
+            "wentToLink4M"
+        );
 
-  document.getElementById(
-    "status"
-  ).textContent =
-    "Đã sao chép key!";
+    if(went === "1"){
+
+        /*
+          Xóa trạng thái để mã chỉ hiện
+          một lần trong phiên trình duyệt.
+        */
+        sessionStorage.removeItem(
+            "wentToLink4M"
+        );
+
+        const key =
+            generateKey();
+
+        document.getElementById(
+            "key"
+        ).textContent = key;
+
+        document.getElementById(
+            "keyBox"
+        ).style.display = "block";
+
+        document.getElementById(
+            "status"
+        ).textContent =
+            "Đã quay lại. Key đã được tạo.";
+    }
 }
+
+
+/*
+    Copy key
+*/
+function copyKey(){
+
+    const key =
+        document.getElementById(
+            "key"
+        ).textContent;
+
+    navigator.clipboard.writeText(key);
+
+    document.getElementById(
+        "status"
+    ).textContent =
+        "Đã sao chép key!";
+}
+
+
+checkReturn();
 
 </script>
 
 </body>
-
 </html>
-  `);
-});
-
-// ============================
-// START SERVER
-// ============================
-
-app.listen(PORT, () => {
-
-  console.log(
-    "Website đang chạy tại port "
-    + PORT
-  );
-
-});
