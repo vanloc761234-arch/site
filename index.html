@@ -1,0 +1,415 @@
+const express = require("express");
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+app.use(express.json());
+
+// ============================
+// KEY CỦA BẠN
+// ============================
+
+const keys = [
+  { value: "FF-KEY-001-A8X9", used: false },
+  { value: "FF-KEY-002-B7K2", used: false },
+  { value: "FF-KEY-003-C5P4", used: false },
+  { value: "FF-KEY-004-D9M8", used: false },
+  { value: "FF-KEY-005-E3Q7", used: false }
+];
+
+// ============================
+// API NHẬN KEY
+// ============================
+
+app.post("/api/claim", (req, res) => {
+
+  const availableKey = keys.find(key => !key.used);
+
+  if (!availableKey) {
+    return res.status(404).json({
+      success: false,
+      message: "Kho key đã hết!"
+    });
+  }
+
+  availableKey.used = true;
+
+  res.json({
+    success: true,
+    key: availableKey.value
+  });
+});
+
+// ============================
+// WEBSITE
+// ============================
+
+app.get("/", (req, res) => {
+
+  res.send(`
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>KEYGAME FF</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+body {
+
+  min-height: 100vh;
+
+  background:
+    radial-gradient(
+      circle at top,
+      #3b1010,
+      #090909 60%
+    );
+
+  color: white;
+
+  display: flex;
+
+  justify-content: center;
+
+  align-items: center;
+
+  padding: 20px;
+}
+
+.container {
+
+  width: 100%;
+
+  max-width: 460px;
+}
+
+.card {
+
+  background: #151515;
+
+  border: 1px solid #333;
+
+  border-radius: 20px;
+
+  padding: 35px 25px;
+
+  text-align: center;
+
+  box-shadow:
+    0 0 40px rgba(0,0,0,.8);
+}
+
+.logo {
+
+  font-size: 40px;
+
+  font-weight: 900;
+
+  color: #ff3030;
+
+  text-shadow:
+    0 0 15px #ff3030;
+
+  margin-bottom: 8px;
+}
+
+.subtitle {
+
+  color: #888;
+
+  margin-bottom: 30px;
+}
+
+.info {
+
+  color: #aaa;
+
+  line-height: 1.6;
+
+  margin-bottom: 25px;
+}
+
+button {
+
+  width: 100%;
+
+  padding: 16px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: #ff3030;
+
+  color: white;
+
+  font-size: 17px;
+
+  font-weight: bold;
+
+  cursor: pointer;
+
+  transition: .2s;
+}
+
+button:hover {
+
+  background: #ff5050;
+
+  transform: translateY(-2px);
+}
+
+button:disabled {
+
+  background: #555;
+
+  cursor: not-allowed;
+
+  transform: none;
+}
+
+#status {
+
+  margin-top: 15px;
+
+  color: #888;
+
+  font-size: 14px;
+}
+
+#result {
+
+  display: none;
+
+  margin-top: 20px;
+
+  padding: 18px;
+
+  background: #090909;
+
+  border: 1px solid #333;
+
+  border-radius: 10px;
+}
+
+.key-title {
+
+  color: #aaa;
+
+  margin-bottom: 10px;
+}
+
+#key {
+
+  color: #00ff88;
+
+  font-size: 20px;
+
+  font-weight: bold;
+
+  word-break: break-all;
+}
+
+.copy {
+
+  margin-top: 15px;
+
+  background: #292929;
+
+  font-size: 14px;
+}
+
+.copy:hover {
+
+  background: #3b3b3b;
+}
+
+.footer {
+
+  text-align: center;
+
+  margin-top: 20px;
+
+  color: #555;
+
+  font-size: 12px;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card">
+
+<div class="logo">
+KEYGAME FF
+</div>
+
+<div class="subtitle">
+KEY MANAGEMENT
+</div>
+
+<div class="info">
+
+Nhấn nút bên dưới để nhận key.
+
+<br>
+
+Mỗi key chỉ được cấp một lần.
+
+</div>
+
+<button
+id="claimButton"
+onclick="claimKey()">
+
+🔑 NHẬN KEY
+
+</button>
+
+<div id="status"></div>
+
+<div id="result">
+
+<div class="key-title">
+Key của bạn
+</div>
+
+<div id="key"></div>
+
+<button
+class="copy"
+onclick="copyKey()">
+
+📋 SAO CHÉP KEY
+
+</button>
+
+</div>
+
+</div>
+
+<div class="footer">
+© 2026 KEYGAME FF
+</div>
+
+</div>
+
+<script>
+
+let currentKey = "";
+
+async function claimKey() {
+
+  const button =
+    document.getElementById(
+      "claimButton"
+    );
+
+  const status =
+    document.getElementById(
+      "status"
+    );
+
+  button.disabled = true;
+
+  status.textContent =
+    "Đang lấy key...";
+
+  try {
+
+    const response =
+      await fetch(
+        "/api/claim",
+        {
+          method: "POST"
+        }
+      );
+
+    const data =
+      await response.json();
+
+    if (!data.success) {
+
+      status.textContent =
+        data.message;
+
+      button.disabled = false;
+
+      return;
+    }
+
+    currentKey = data.key;
+
+    document.getElementById(
+      "key"
+    ).textContent = currentKey;
+
+    document.getElementById(
+      "result"
+    ).style.display = "block";
+
+    status.textContent =
+      "Nhận key thành công!";
+
+  } catch (error) {
+
+    status.textContent =
+      "Không kết nối được máy chủ.";
+
+    button.disabled = false;
+  }
+}
+
+function copyKey() {
+
+  if (!currentKey) return;
+
+  navigator.clipboard.writeText(
+    currentKey
+  );
+
+  document.getElementById(
+    "status"
+  ).textContent =
+    "Đã sao chép key!";
+}
+
+</script>
+
+</body>
+
+</html>
+  `);
+});
+
+// ============================
+// START SERVER
+// ============================
+
+app.listen(PORT, () => {
+
+  console.log(
+    "Website đang chạy tại port "
+    + PORT
+  );
+
+});
