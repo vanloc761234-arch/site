@@ -1,282 +1,312 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>GETKEY MENU FF</title>
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Galaxy Key</title>
 
 <style>
 *{
+    box-sizing:border-box;
     margin:0;
     padding:0;
-    box-sizing:border-box;
     font-family:Arial,sans-serif;
 }
 
 body{
     min-height:100vh;
-    background:
-        radial-gradient(circle at top,#4b1111,#070707 65%);
+    background:#0b1220;
     color:white;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    padding:20px;
+    padding:25px 15px;
 }
 
-.box{
-    width:100%;
-    max-width:430px;
-    background:#151515;
-    border:1px solid #333;
-    border-radius:20px;
-    padding:30px 24px;
+.container{
+    max-width:650px;
+    margin:auto;
+}
+
+/* PROFILE */
+.profile{
     text-align:center;
-    box-shadow:0 0 40px rgba(255,0,0,.18);
+    margin:20px 0 35px;
 }
 
-.logo{
-    font-size:38px;
+.avatar{
+    width:105px;
+    height:105px;
+    margin:auto;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:32px;
     font-weight:900;
-    color:#ff3030;
-    text-shadow:0 0 15px #ff0000;
-    margin-bottom:8px;
+    color:white;
+
+    background:
+      radial-gradient(circle at 30% 25%,#fff,#8c8cff 8%,transparent 18%),
+      radial-gradient(circle at 70% 65%,#fff,#b000ff 8%,transparent 18%),
+      radial-gradient(circle at 50% 50%,#211052,#090015 70%);
+
+    border:3px solid #536bff;
+    box-shadow:0 0 30px #4055ff;
 }
 
-.subtitle{
-    color:#888;
-    font-size:14px;
-    margin-bottom:25px;
+.name{
+    margin-top:15px;
+    font-size:30px;
+    font-weight:900;
 }
 
-.info{
-    color:#aaa;
-    line-height:1.6;
-    margin-bottom:25px;
+.sub{
+    margin-top:6px;
+    color:#8994aa;
 }
 
-button{
+/* SEARCH */
+.search{
     width:100%;
-    padding:16px;
+    padding:18px 20px;
+    border-radius:18px;
+    border:1px solid #35445c;
+    background:#1b293b;
+    color:white;
+    font-size:17px;
+    outline:none;
+    margin-bottom:15px;
+}
+
+/* CATEGORY */
+.category{
+    width:100%;
+    padding:18px 20px;
+    border-radius:18px;
+    background:#1b293b;
+    border:1px solid #35445c;
+    color:white;
+    font-size:17px;
+    margin-bottom:18px;
+}
+
+/* PRODUCTS */
+.products{
+    display:none;
+}
+
+.card{
+    background:#1b293b;
+    border:1px solid #35445c;
+    border-radius:20px;
+    padding:22px;
+    margin-bottom:15px;
+}
+
+.card-top{
+    display:flex;
+    align-items:center;
+    gap:18px;
+}
+
+.game-icon{
+    width:75px;
+    height:75px;
+    border-radius:16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:#293b53;
+    font-size:28px;
+}
+
+.card h2{
+    font-size:22px;
+}
+
+.card p{
+    color:#8994aa;
+    margin-top:6px;
+}
+
+.get{
+    margin-top:20px;
+    width:100%;
+    padding:15px;
     border:0;
-    border-radius:11px;
-    background:#ff3030;
+    border-radius:30px;
+    background:#5064ff;
     color:white;
     font-size:17px;
     font-weight:bold;
-    cursor:pointer;
 }
 
-button:hover{
-    background:#ff4b4b;
-}
-
-#keyBox{
+.result{
     display:none;
-    margin-top:20px;
-    padding:20px;
-    background:#090909;
-    border:1px solid #333;
+    margin-top:15px;
+    padding:15px;
     border-radius:12px;
+    background:#101923;
+    color:#62ff9b;
+    text-align:center;
 }
 
-.keyTitle{
-    color:#999;
-    font-size:14px;
-    margin-bottom:10px;
-}
-
-#key{
-    color:#00ff88;
-    font-size:22px;
-    font-weight:bold;
-    word-break:break-all;
-}
-
-.copy{
-    margin-top:15px;
-    background:#292929;
-    font-size:14px;
-}
-
-.status{
-    margin-top:15px;
-    color:#888;
-    font-size:13px;
-}
-
-.footer{
-    margin-top:20px;
-    color:#555;
-    font-size:12px;
-}
 </style>
 </head>
 
 <body>
 
-<div class="box">
+<div class="container">
 
-    <div class="logo">
-        GETKEY MENU FF
-    </div>
+    <div class="profile">
 
-    <div class="subtitle">
-        KEY MANAGEMENT
-    </div>
-
-    <div class="info">
-        Nhấn nút bên dưới để nhận key.
-        <br>
-        Hoàn thành bước xác minh rồi quay lại trang.
-    </div>
-
-    <button onclick="goLink4M()">
-        🔑 NHẬN KEY
-    </button>
-
-    <div id="status" class="status"></div>
-
-    <div id="keyBox">
-
-        <div class="keyTitle">
-            KEY CỦA BẠN
+        <div class="avatar">
+            G
         </div>
 
-        <div id="key"></div>
+        <div class="name">
+            galaxy.
+        </div>
 
-        <button class="copy" onclick="copyKey()">
-            📋 SAO CHÉP KEY
-        </button>
+        <div class="sub">
+            KEY MANAGEMENT
+        </div>
 
     </div>
 
-    <div class="footer">
-        © 2026 GETKEY MENU FF
+
+    <input
+        class="search"
+        placeholder="Tìm kiếm sản phẩm..."
+        oninput="searchProduct(this.value)"
+    >
+
+
+    <div class="category">
+        Tất cả games
+    </div>
+
+
+    <div class="products" id="products">
+
+        <!-- SẢN PHẨM 1 -->
+        <div class="card" data-name="Game Tool A">
+
+            <div class="card-top">
+
+                <div class="game-icon">
+                    🎮
+                </div>
+
+                <div>
+                    <h2>Game Tool A</h2>
+                    <p>Key Access</p>
+                </div>
+
+            </div>
+
+            <button class="get"
+                onclick="showDemo(this,'DEMO-A')">
+                Nhận key
+            </button>
+
+            <div class="result"></div>
+
+        </div>
+
+
+        <!-- SẢN PHẨM 2 -->
+        <div class="card" data-name="Game Tool B">
+
+            <div class="card-top">
+
+                <div class="game-icon">
+                    🎮
+                </div>
+
+                <div>
+                    <h2>Game Tool B</h2>
+                    <p>Key Access</p>
+                </div>
+
+            </div>
+
+            <button class="get"
+                onclick="showDemo(this,'DEMO-B')">
+                Nhận key
+            </button>
+
+            <div class="result"></div>
+
+        </div>
+
+
+        <!-- SẢN PHẨM 3 -->
+        <div class="card" data-name="Game Tool C">
+
+            <div class="card-top">
+
+                <div class="game-icon">
+                    🎮
+                </div>
+
+                <div>
+                    <h2>Game Tool C</h2>
+                    <p>Key Access</p>
+                </div>
+
+            </div>
+
+            <button class="get"
+                onclick="showDemo(this,'DEMO-C')">
+                Nhận key
+            </button>
+
+            <div class="result"></div>
+
+        </div>
+
     </div>
 
 </div>
 
+
 <script>
 
-/*
-    LINK4M CỦA BẠN
-*/
-const LINK4M =
-"https://link4m.org/MVYzDd";
+/* Hiện danh sách */
+document.getElementById("products").style.display="block";
 
 
-/*
-    Khi bấm NHẬN KEY
-*/
-function goLink4M(){
+/* Tìm sản phẩm */
+function searchProduct(value){
 
-    /*
-      Lưu trạng thái để khi quay lại
-      trang có thể biết đã đi qua Link4M.
-    */
-    sessionStorage.setItem(
-        "wentToLink4M",
-        "1"
-    );
+    value=value.toLowerCase();
 
-    window.location.href = LINK4M;
+    document.querySelectorAll(".card").forEach(card=>{
+
+        const name=
+            card.dataset.name.toLowerCase();
+
+        card.style.display=
+            name.includes(value)
+            ? "block"
+            : "none";
+
+    });
 }
 
 
-/*
-    Tạo key ngẫu nhiên
-*/
-function generateKey(){
+/* Demo mã cho dự án hợp lệ */
+function showDemo(button,key){
 
-    const chars =
-        "ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+    const result=
+        button.parentElement.querySelector(".result");
 
-    let part1 = "";
-    let part2 = "";
+    result.style.display="block";
 
-    for(let i = 0; i < 6; i++){
-        part1 += chars[
-            Math.floor(
-                Math.random() * chars.length
-            )
-        ];
-    }
-
-    for(let i = 0; i < 6; i++){
-        part2 += chars[
-            Math.floor(
-                Math.random() * chars.length
-            )
-        ];
-    }
-
-    return "FF-" + part1 + "-" + part2;
+    result.textContent=
+        "Mã demo: "+key;
 }
-
-
-/*
-    Kiểm tra khi người dùng quay lại
-*/
-function checkReturn(){
-
-    const went =
-        sessionStorage.getItem(
-            "wentToLink4M"
-        );
-
-    if(went === "1"){
-
-        /*
-          Xóa trạng thái để mã chỉ hiện
-          một lần trong phiên trình duyệt.
-        */
-        sessionStorage.removeItem(
-            "wentToLink4M"
-        );
-
-        const key =
-            generateKey();
-
-        document.getElementById(
-            "key"
-        ).textContent = key;
-
-        document.getElementById(
-            "keyBox"
-        ).style.display = "block";
-
-        document.getElementById(
-            "status"
-        ).textContent =
-            "Đã quay lại. Key đã được tạo.";
-    }
-}
-
-
-/*
-    Copy key
-*/
-function copyKey(){
-
-    const key =
-        document.getElementById(
-            "key"
-        ).textContent;
-
-    navigator.clipboard.writeText(key);
-
-    document.getElementById(
-        "status"
-    ).textContent =
-        "Đã sao chép key!";
-}
-
-
-checkReturn();
 
 </script>
 
 </body>
-</html>
+    </html>
